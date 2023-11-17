@@ -6,6 +6,14 @@ name = "pypi"
 [packages]
 django = "4.0.1"
 djangorestframework = "*"
+django-decouple = "*"
+pillow = "*"
+django-import-export = "*"
+flake8 = "*"
+django-cors-headers = "*"
+django-filter = "*"
+django-ckeditor = "*"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
 
