@@ -187,35 +187,17 @@ const Dashboard = (props) => {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap component="div" >
+            <Typography variant="h6" noWrap component="div">
               DASHBOARD
             </Typography>
           </Toolbar>
         </AppBar>
         <Box
           component="nav"
-          sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
           aria-label="mailbox folders"
         >
           {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-          <Drawer
-            container={container}
-            variant="temporary"
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
-            sx={{
-              display: { xs: "block", sm: "none" },
-              "& .MuiDrawer-paper": {
-                boxSizing: "border-box",
-                width: drawerWidth,
-              },
-            }}
-          >
-            {drawer}
-          </Drawer>
+          
           <Drawer
             variant="permanent"
             sx={{
@@ -232,15 +214,19 @@ const Dashboard = (props) => {
         </Box>
         <Box
           component="main"
-          sx={{
-            flexGrow: 1,
-            p: 3,
-            width: { sm: `calc(100% - ${drawerWidth}px)` },
-          }}
+        //   sx={{
+        //     width: "100%",
+        //   }}
         >
-          <Toolbar />
+          {/* <Toolbar /> */}
           {Items.map((item, index) => (
-            <TabPanel value={tab} index={index}>
+            <TabPanel
+              value={tab}
+              index={index}
+            //   sx={{
+            //     width: "100%",
+            //   }}
+            >
               {item.component}
             </TabPanel>
           ))}
