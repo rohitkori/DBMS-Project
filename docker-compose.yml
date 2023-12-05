@@ -1,0 +1,29 @@
+version: '3'
+services:
+  postgresqldb:
+    image: 'bitnami/postgresql:latest'
+    container_name: food-database
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - POSTGRESQL_USERNAME=$DB_USER
+      - POSTGRESQL_PASSWORD=$DB_PASSWORD
+      - POSTGRESQL_DATABASE=$DB_NAME
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $DB_USER"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - '5432:5432'
+    volumes:
+      - dbdata:/bitnami/postgresql
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  dbdata:
