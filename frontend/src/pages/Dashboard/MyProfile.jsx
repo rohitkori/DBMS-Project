@@ -3,10 +3,34 @@ import Requests from "../../components/Requests";
 import MyInfo from "../../components/MyInfo";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import "./MyProfile.css";
 import Divider from "@mui/material/Divider";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import TextField from "@mui/material/TextField";
+import "./MyProfile.css";
+
+const requestHeading = {
+  marginTop: "0px",
+};
 
 const MyProfile = () => {
+  const [open, setOpen] = React.useState(false);
+  const [name, setName] = React.useState("");
+  const [address, setAddress] = React.useState("");
+  const [phone, setPhone] = React.useState("");
+  const [food, setFood] = React.useState("");
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <div className="myprofile-main">
       <div className="myprofile-about">
@@ -25,11 +49,66 @@ const MyProfile = () => {
             justifyContent: "space-between",
           }}
         >
-          <h2>ALL REQUESTS</h2>
-          <Button>Create New</Button>
+          <h2 sx={requestHeading}>ALL REQUESTS</h2>
+          <Button variant="outlined" onClick={handleClickOpen}>
+            Create New
+          </Button>
         </Box>
         <Requests />
       </div>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Food Donation Form</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Please enter the valid entry for the food donation form.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            label="Name of the Donor"
+            type="text"
+            fullWidth
+            variant="standard"
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            label="Address"
+            type="text"
+            fullWidth
+            variant="standard"
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            label="Phone Number"
+            pattern="[1-9]{1}[0-9]{9}"
+            type="contact"
+            fullWidth
+            variant="standard"
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            label="Food Discription (Quantity, Type, etc.)"
+            type="text"
+            fullWidth
+            variant="standard"
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>Submit</Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
