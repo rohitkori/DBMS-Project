@@ -33,8 +33,8 @@ class UserAdmin(ImportExportModelAdmin, DjangoUserAdmin):
 
 @admin.register(Donor)
 class DonorAdmin(ImportExportModelAdmin):
-    list_display = ('donor_id', 'user', 'donor_name', 'donor_contact', 'donor_address')
-    ordering = ('donor_id',)
+    list_display = ('user', 'donor_name', 'donor_contact', 'donor_address')
+    ordering = ('user__id',)
 
     class Meta:
         model = Donor
@@ -43,8 +43,8 @@ class DonorAdmin(ImportExportModelAdmin):
 @admin.register(Volunteer)
 
 class VolunteerAdmin(ImportExportModelAdmin):
-    list_display = ('volounteer_id', 'user', 'volunteer_name', 'volunteer_contact', 'volunteer_address')
-    ordering = ('volounteer_id',)
+    list_display = ( 'user', 'volunteer_name', 'volunteer_contact', 'volunteer_address')
+    ordering = ('user__id',)
 
     class Meta:
         model = Volunteer
@@ -52,8 +52,8 @@ class VolunteerAdmin(ImportExportModelAdmin):
 
 @admin.register(food)
 class foodAdmin(ImportExportModelAdmin):
-    list_display = ('food_id', 'donator', 'food_name', 'food_description')
-    ordering = ('food_id',)
+    list_display = ('id', 'donator', 'food_name', 'food_description')
+    ordering = ('id',)
 
     class Meta:
         model = food
@@ -62,8 +62,8 @@ class foodAdmin(ImportExportModelAdmin):
 @admin.register(pickup_request)
 
 class pickup_requestAdmin(ImportExportModelAdmin):
-    list_display = ('pick_id', 'pickup_person', 'food_id', 'is_picked')
-    ordering = ('pick_id',)
+    list_display = ('id', 'pickup_person', 'food_id', 'is_picked')
+    ordering = ('id',)
 
     class Meta:
         model = pickup_request
@@ -71,8 +71,8 @@ class pickup_requestAdmin(ImportExportModelAdmin):
 
 @admin.register(delivery_area)
 class delivery_areaAdmin(ImportExportModelAdmin):
-    list_display = ('area_id', 'area_name', 'area_description', 'area_address')
-    ordering = ('area_id',)
+    list_display = ('id', 'area_name', 'area_description', 'area_address')
+    ordering = ('id',)
 
     class Meta:
         model = delivery_area

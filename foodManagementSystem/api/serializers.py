@@ -14,3 +14,39 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 
         return token
+
+class DonorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Donor
+        fields = '__all__'
+
+class VolunteerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Volunteer
+        fields = '__all__'
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
+
+class foodSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = food
+        fields = '__all__'
+
+class pickup_requestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = pickup_request
+        fields = '__all__'
+
+class delivery_areaSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = delivery_area
+        fields = '__all__'
+
+class distrubution_requestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = distrubution_request
+        fields = '__all__'
