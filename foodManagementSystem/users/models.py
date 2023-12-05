@@ -11,7 +11,7 @@ GENDER_CHOICES = (
 )
 
 class User(AbstractUser):
-    username = models.CharField(max_length=250, unique=True, blank=False, null=False)
+    username = None
     email = models.EmailField(unique=True, blank=False, null=False)
     USERNAME_FIELD = 'email'
     isDonor = models.BooleanField(default=False)

@@ -43,6 +43,12 @@ INSTALLED_APPS = [
     'import_export',
     'api',
     'users',
+    'corsheaders',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    'http://127.0.0.1:5173',
 ]
 
 AUTH_USER_MODEL = 'users.User'
