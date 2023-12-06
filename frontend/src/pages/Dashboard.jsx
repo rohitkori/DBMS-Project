@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -22,6 +22,7 @@ import AboutUs from "./Dashboard/AboutUs";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { jwtDecode } from "jwt-decode";
 import { API_BASE_URL } from "../config";
+import useAxios from "../utils/useAxios";
 
 const drawerWidth = 240;
 const dark = {
@@ -60,7 +61,6 @@ function a11yProps(index) {
 const Dashboard = (props) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [tab, setTab] = useState(0);
-  const baseURL = API_BASE_URL;
 
   const [user, setUser] = useState(() =>
     localStorage.getItem("authTokens")

@@ -36,9 +36,16 @@ class foodSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class pickup_requestSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = pickup_request
         fields = '__all__'
+
+    def to_representation(self, instance):
+        rep = super(pickup_requestSerializer, self).to_representation(instance)
+        rep['pickup_address'] = instance.food_id.donator.donor_address
+        return rep
+
 
 class delivery_areaSerializer(serializers.ModelSerializer):
 

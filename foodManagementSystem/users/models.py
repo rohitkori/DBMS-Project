@@ -32,7 +32,7 @@ class Donor(models.Model):
     donor_address = models.CharField(max_length=250, null=False, blank=False, default="Donor Address")
     
     def __str__(self):
-        return self.user.id
+        return self.donor_name
 
 
 class Volunteer(models.Model):
@@ -50,7 +50,7 @@ class food(models.Model):
     food_description = models.CharField(max_length=250, null=True, blank=True,  default="Food Description")
 
     def __str__(self):
-        return self.id
+        return self.food_name
     
 class pickup_request(models.Model):
     pickup_person = models.ForeignKey(Volunteer, on_delete=models.CASCADE, blank=True, null=True)
@@ -58,7 +58,7 @@ class pickup_request(models.Model):
     is_picked = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.id
+        return self.food_id.food_name 
     
 class delivery_area(models.Model):
     area_name = models.CharField(max_length=250, null=False, blank=False, default="Area")
@@ -66,7 +66,7 @@ class delivery_area(models.Model):
     area_address = models.CharField(max_length=250, null=False, blank=False, default="Area Address")
 
     def __str__(self):
-        return self.id
+        return self.area_name
 
 class distrubution_request(models.Model):
     # food_id = models.OneToOneField(food, on_delete=models.CASCADE)
@@ -75,6 +75,6 @@ class distrubution_request(models.Model):
     is_distributed = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.id
+        return self.distribution_area.area_name
 
 
