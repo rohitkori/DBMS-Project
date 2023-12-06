@@ -6,33 +6,51 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import ImageIcon from "@mui/icons-material/Image";
 import Card from "@mui/material/Card";
-import Divider from "@mui/material/Divider";
+import toast from "react-hot-toast";
 import Button from "@mui/material/Button";
 import { Box } from "@mui/material";
 
+const request = [
+  {
+    request_id: 1,
+    type: "food pick up",
+    address: "1234 Main St",
+  },
+  {
+    request_id: 2,
+    type: "food pick up",
+    address: "1234 Main St",
+  },
+  {
+    request_id: 3,
+    type: "food pick up",
+    address: "1234 Main St",
+  },
+  {
+    request_id: 4,
+    type: "food pick up",
+    address: "1234 Main St",
+  },
+];
 const Requests = () => {
-  const requests = [
-    {
-      request_id: 1,
-      type: "food pick up",
-      address: "1234 Main St",
-    },
-    {
-      request_id: 2,
-      type: "food pick up",
-      address: "1234 Main St",
-    },
-    {
-      request_id: 3,
-      type: "food pick up",
-      address: "1234 Main St",
-    },
-    {
-      request_id: 4,
-      type: "food pick up",
-      address: "1234 Main St",
-    },
-  ];
+  const [acceptedRequests, setAcceptedRequests] = React.useState([]);
+  const [requests, setRequests] = React.useState(request);
+
+  function handleRequest(e, status) {
+    if (status) {
+      toast.success("Request accepted");
+      console.log(e);
+      setAcceptedRequests([...acceptedRequests, e]);
+      setRequests(
+        requests.filter((request) => request.request_id !== e.request_id)
+      );
+    } else {
+      toast.error("Request rejected");
+      setRequests(
+        requests.filter((request) => request.request_id !== e.request_id)
+      );
+    }
+  }
 
   return (
     <div>
@@ -40,18 +58,33 @@ const Requests = () => {
         sx={{
           width: "600px",
           maxWidth: 600,
-          bgcolor: "background.paper",
+          // bgcolor: "background.paper",
         }}
       >
         {requests.map((request) => (
-          <Card>
+          <Card
+            sx={{
+              width: "600px",
+              maxWidth: 600,
+              bgcolor: "background.paper",
+              marginBottom: "10px",
+            }}
+          >
             <ListItem
               secondaryAction={
                 <Box>
-                  <Button key="accept" sx={{ color: "green" }}>
+                  <Button
+                    onClick={() => handleRequest(request, true)}
+                    key="accept"
+                    sx={{ color: "green" }}
+                  >
                     accept
                   </Button>
-                  <Button key="reject" sx={{ color: "red" }}>
+                  <Button
+                    onClick={() => handleRequest(request, false)}
+                    key="reject"
+                    sx={{ color: "red" }}
+                  >
                     reject
                   </Button>
                 </Box>
@@ -67,7 +100,35 @@ const Requests = () => {
                 secondary={request.address}
               />
             </ListItem>
-            <Divider variant="inset" component="li" />
+          </Card>
+        ))}
+        <h2>Accepted Requests</h2>
+        {acceptedRequests.map((request) => (
+          <Card
+            sx={{
+              width: "600px",
+              maxWidth: 600,
+              bgcolor: "background.paper",
+              marginBottom: "10px",
+            }}
+          >
+            <ListItem
+              secondaryAction={
+                <Box>
+                  <Button sx={{ color: "green" }}>accepted</Button>
+                </Box>
+              }
+            >
+              <ListItemAvatar>
+                <Avatar>
+                  <ImageIcon />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText
+                primary={request.type}
+                secondary={request.address}
+              />
+            </ListItem>
           </Card>
         ))}
       </List>

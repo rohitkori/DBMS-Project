@@ -16,9 +16,11 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import LogoutIcon from "@mui/icons-material/Logout";
 import InterestsIcon from "@mui/icons-material/Interests";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 import InfoIcon from "@mui/icons-material/Info";
 import MyProfile from "./Dashboard/MyProfile";
 import AboutUs from "./Dashboard/AboutUs";
+import BeggerArea from "./Dashboard/BeggerArea";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { jwtDecode } from "jwt-decode";
 import { API_BASE_URL } from "../config";
@@ -67,7 +69,7 @@ const Dashboard = (props) => {
       ? jwtDecode(localStorage.getItem("authTokens"))
       : null
   );
-  console.log(jwtDecode(localStorage.getItem("authTokens")));
+  // console.log(jwtDecode(localStorage.getItem("authTokens")));
 
   const handleTabChange = (event, newValue) => {
     setTab(newValue);
@@ -101,6 +103,11 @@ const Dashboard = (props) => {
       text: "About Us",
       icon: <InfoIcon className="text-[#A0A0A0]" />,
       component: <AboutUs />,
+    },
+    {
+      text: "Begger Area",
+      icon: <LocationOnIcon className="text-[#A0A0A0]" />,
+      component: <BeggerArea />,
     },
   ];
 
