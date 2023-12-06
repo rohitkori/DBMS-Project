@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
@@ -35,8 +35,40 @@ const request = [
 ];
 const Requests = () => {
   const [acceptedRequests, setAcceptedRequests] = React.useState([]);
-  const [requests, setRequests] = React.useState(request);
-
+  const [requests, setRequests] = React.useState([]);
+  const api = useAxios();
+  // const requests = [
+  //   {
+  //     request_id: 1,
+  //     type: "food pick up",
+  //     address: "1234 Main St",
+  //   },
+  //   {
+  //     request_id: 2,
+  //     type: "food pick up",
+  //     address: "1234 Main St",
+  //   },
+  //   {
+  //     request_id: 3,
+  //     type: "food pick up",
+  //     address: "1234 Main St",
+  //   },
+  //   {
+  //     request_id: 4,
+  //     type: "food pick up",
+  //     address: "1234 Main St",
+  //   },
+  // ];
+  useEffect(() => {
+    const fetchOpenPickups = async () => {
+      const response = await api.get("/open-pickups/");
+      if (response.status === 200) {
+        setRequests(response.data["Requests"]);
+      }
+      console.log(response.data);
+    };
+    fetchOpenPickups();
+  }, []);
   function handleRequest(e, status) {
     if (status) {
       toast.success("Request accepted");
@@ -62,7 +94,6 @@ const Requests = () => {
           // bgcolor: "background.paper",
         }}
       >
-        
         {requests.map((request) => (
           <Card
             sx={{
@@ -97,10 +128,7 @@ const Requests = () => {
                   <ImageIcon />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText
-                primary="name"
-                secondary={request.pickup_address}
-              />
+              <ListItemText primary="name" secondary={request.pickup_address} />
             </ListItem>
           </Card>
         ))}
