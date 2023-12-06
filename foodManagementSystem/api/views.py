@@ -90,15 +90,18 @@ class AcceptPickupRequestViewSet(APIView):
     serializer_class = pickup_requestSerializer
     permission_classes = [AllowAny]
 
-    def post(self, request, format=None):
+    def get(self, request, format=None):
         user = request.user
         volunteer = Volunteer.objects.get(user=user)
-        pickup_request_id = request.data.pickup_request_id
-        pickup_request = pickup_request.objects.get(id=pickup_request_id)
-        pickup_request.pickup_person = volunteer
-        pickup_request.save()
+        # pickup_request_id = request.data.pickup_request_id
+        # pickup_request = pickup_request.objects.get(id=pickup_request_id)
+        # pickup_request.pickup_person = volunteer
+        # pickup_request.save()
+        volunteer_requests = pickup_request.objects.filter(pickup_person=volunteer)
+        serializer = pickup_requestSerializer(volunteer_requests, many=True)
 
-        return Response({"message": "Pickup Request Accepted"}, status=status.HTTP_200_OK) 
+
+        return Response({"Accepted-Requests": serializer.data}, status=status.HTTP_200_OK) 
     
 class PickUpDoneViewSet(APIView):
     queryset = pickup_request.objects.all()
@@ -173,3 +176,19 @@ class DistributionDoneViewSet(APIView):
         distribution_request.save()
 
         return Response({"message": "Distribution Request Completed"}, status=status.HTTP_200_OK)
+    
+class PickupAcceptViewSet(APIView): 
+    queryset = pickup_request.objects.all()
+    serializer_class = pickup_requestSerializer
+    permission_classes = [AllowAny]
+
+    def post(self, request, format=None):
+        user = request.user
+        volunteer = Volunteer.objects.get(user=user)
+        id = request.data['id']
+        pickup_req = pickup_request.objects.get(id=id)
+        pickup_req.pickup_person = volunteer
+        pickup_req.is_picked = True
+        pickup_req.save()
+
+        return Response({"message": "Pickup Request Accepted"}, status=status.HTTP_200_OK)

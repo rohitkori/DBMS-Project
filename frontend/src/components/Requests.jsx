@@ -11,54 +11,11 @@ import Button from "@mui/material/Button";
 import { Box } from "@mui/material";
 import useAxios from "../utils/useAxios";
 
-const request = [
-  {
-    request_id: 1,
-    type: "food pick up",
-    address: "1234 Main St",
-  },
-  {
-    request_id: 2,
-    type: "food pick up",
-    address: "1234 Main St",
-  },
-  {
-    request_id: 3,
-    type: "food pick up",
-    address: "1234 Main St",
-  },
-  {
-    request_id: 4,
-    type: "food pick up",
-    address: "1234 Main St",
-  },
-];
 const Requests = () => {
   const [acceptedRequests, setAcceptedRequests] = React.useState([]);
   const [requests, setRequests] = React.useState([]);
   const api = useAxios();
-  // const requests = [
-  //   {
-  //     request_id: 1,
-  //     type: "food pick up",
-  //     address: "1234 Main St",
-  //   },
-  //   {
-  //     request_id: 2,
-  //     type: "food pick up",
-  //     address: "1234 Main St",
-  //   },
-  //   {
-  //     request_id: 3,
-  //     type: "food pick up",
-  //     address: "1234 Main St",
-  //   },
-  //   {
-  //     request_id: 4,
-  //     type: "food pick up",
-  //     address: "1234 Main St",
-  //   },
-  // ];
+ 
   useEffect(() => {
     const fetchOpenPickups = async () => {
       const response = await api.get("/open-pickups/");
@@ -68,11 +25,40 @@ const Requests = () => {
       console.log(response.data);
     };
     fetchOpenPickups();
+  }, [acceptedRequests]);
+
+  useEffect(() => {
+    const fetchAcceptedPickups = async () => {
+      const response = await api.get("/accept-pickup/");
+      if (response.status === 200) {
+        setAcceptedRequests(response.data["Accepted-Requests"]);
+      }
+      console.log(response.data);
+    };
+    fetchAcceptedPickups();
   }, []);
-  function handleRequest(e, status) {
-    if (status) {
+
+  const handleAccept = async (e) => {
+    const response = await api.post("/pickup-accept/", {
+      id: e.id,
+    });
+    if (response.status === 200) {
       toast.success("Request accepted");
       console.log(e);
+
+      setAcceptedRequests([...acceptedRequests, e]);
+      setRequests(
+        requests.filter((request) => request.request_id !== e.request_id)
+      );
+    }
+  }
+
+  function handleRequest(e, status) {
+    if (status) {
+      handleAccept(e);
+      toast.success("Request accepted");
+      console.log(e);
+
       setAcceptedRequests([...acceptedRequests, e]);
       setRequests(
         requests.filter((request) => request.request_id !== e.request_id)
@@ -128,7 +114,7 @@ const Requests = () => {
                   <ImageIcon />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary="name" secondary={request.pickup_address} />
+              <ListItemText primary={request.donor_name} secondary={request.pickup_address} />
             </ListItem>
           </Card>
         ))}
@@ -156,7 +142,7 @@ const Requests = () => {
               </ListItemAvatar>
               <ListItemText
                 primary={request.type}
-                secondary={request.address}
+                secondary={request.pickup_address}
               />
             </ListItem>
           </Card>

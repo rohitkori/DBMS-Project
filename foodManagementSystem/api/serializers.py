@@ -11,6 +11,9 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['email'] = user.email
         token['isDonor'] = user.isDonor
         token['isVolunteer'] = user.isVolunteer
+        # if token['isVolunteer'] :
+        #     volunteer = Volunteer.objects.get(user=user)
+            # token['volunteer_id'] = volunteer.id
 
 
         return token
@@ -35,6 +38,8 @@ class foodSerializer(serializers.ModelSerializer):
         model = food
         fields = '__all__'
 
+    
+
 class pickup_requestSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -44,6 +49,8 @@ class pickup_requestSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         rep = super(pickup_requestSerializer, self).to_representation(instance)
         rep['pickup_address'] = instance.food_id.donator.donor_address
+        rep['donor_name'] = instance.food_id.donator.donor_name
+        
         return rep
 
 

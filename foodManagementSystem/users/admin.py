@@ -10,7 +10,7 @@ from .models import User, Donor, Volunteer, food, pickup_request, delivery_area,
 @admin.register(User)
 class UserAdmin(ImportExportModelAdmin, DjangoUserAdmin):
     fieldsets = (
-        (None, {'fields': ('email', 'password', 'isDonor', 'isVolunteer')}),
+        (None, {'fields': ('email', 'password', 'isDonor', 'isVolunteer', 'first_name', 'last_name')}),
         # (_('Personal info'), {'fields': ('first_name', 'last_name', 'gender', 'contact')}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
                                        'groups', 'user_permissions')}),

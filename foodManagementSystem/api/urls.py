@@ -24,4 +24,5 @@ urlpatterns = [
     path('open-distributions/', OpenDistributionRequestViewSet.as_view(), name='open_distribution'),
     path('accept-distribution/', AcceptDistributionRequestViewSet.as_view(), name='accept_distribution'),
     path('done-distribution/', DistributionDoneViewSet.as_view(), name='done_distribution'),
+    path('pickup-accept/', PickupAcceptViewSet.as_view(), name='pickup_accept'),
 ]
