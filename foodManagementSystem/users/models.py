@@ -42,7 +42,7 @@ class Volunteer(models.Model):
     volunteer_address = models.CharField(max_length=250, null=False, blank=False, default="Volunteer Address")
 
     def __str__(self):
-        return self.user.id
+        return self.volunteer_name
 
 class food(models.Model):
     donator = models.ForeignKey(Donor, on_delete=models.CASCADE)
