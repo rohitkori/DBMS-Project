@@ -15,6 +15,7 @@
     "@mui/icons-material": "^5.14.0",
     "@mui/material": "^5.13.7",
     "axios": "^1.6.2",
+    "dayjs": "^1.11.10",
     "dotenv": "^16.3.1",
     "firebase": "^10.0.0",
     "jwt-decode": "^4.0.0",

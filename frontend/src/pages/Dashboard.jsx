@@ -20,6 +20,8 @@ import InfoIcon from "@mui/icons-material/Info";
 import MyProfile from "./Dashboard/MyProfile";
 import AboutUs from "./Dashboard/AboutUs";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { jwtDecode } from "jwt-decode";
+import { API_BASE_URL } from "../config";
 
 const drawerWidth = 240;
 const dark = {
@@ -58,6 +60,14 @@ function a11yProps(index) {
 const Dashboard = (props) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [tab, setTab] = useState(0);
+  const baseURL = API_BASE_URL;
+
+  const [user, setUser] = useState(() =>
+    localStorage.getItem("authTokens")
+      ? jwtDecode(localStorage.getItem("authTokens"))
+      : null
+  );
+  console.log(jwtDecode(localStorage.getItem("authTokens")));
 
   const handleTabChange = (event, newValue) => {
     setTab(newValue);
@@ -192,12 +202,9 @@ const Dashboard = (props) => {
             </Typography>
           </Toolbar>
         </AppBar>
-        <Box
-          component="nav"
-          aria-label="mailbox folders"
-        >
+        <Box component="nav" aria-label="mailbox folders">
           {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-          
+
           <Drawer
             variant="permanent"
             sx={{
@@ -214,18 +221,18 @@ const Dashboard = (props) => {
         </Box>
         <Box
           component="main"
-        //   sx={{
-        //     width: "100%",
-        //   }}
+          //   sx={{
+          //     width: "100%",
+          //   }}
         >
           {/* <Toolbar /> */}
           {Items.map((item, index) => (
             <TabPanel
               value={tab}
               index={index}
-            //   sx={{
-            //     width: "100%",
-            //   }}
+              //   sx={{
+              //     width: "100%",
+              //   }}
             >
               {item.component}
             </TabPanel>
