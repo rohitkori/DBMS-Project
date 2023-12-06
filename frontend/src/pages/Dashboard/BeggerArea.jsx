@@ -1,6 +1,5 @@
-import Typography from "@mui/material/Typography";
+import toast from "react-hot-toast";
 import Card from "@mui/material/Card";
-import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
 import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
@@ -15,6 +14,7 @@ const BeggerArea = ({ area }) => {
   const [upvoteDisabled, setUpvoteDisabled] = React.useState(false);
   const handleUpvote = () => {
     setUpvoteDisabled(true);
+    toast.success("Upvoted Successfully")
   };
 
   const areas = [
