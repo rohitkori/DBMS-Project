@@ -75,11 +75,12 @@ class OpenPickupRequestViewSet(APIView):
     serializer_class = pickup_requestSerializer
     permission_classes = [AllowAny]
 
-    def post(self, request, format=None):
+    def get(self, request, format=None):
         user = request.user
-        volunteer = Volunteer.objects.get(user=user)
+        # volunteer = Volunteer.objects.get(user=user)
         open_pickup_requests = pickup_request.objects.filter(is_picked=False)
-        return Response({"Requests": open_pickup_requests}, status=status.HTTP_200_OK)
+        serializer = pickup_requestSerializer(open_pickup_requests, many=True)
+        return Response({"Requests": serializer.data}, status=status.HTTP_200_OK)
     
 
 class AcceptPickupRequestViewSet(APIView):

@@ -70,8 +70,15 @@ const MyProfile = () => {
     <div className="myprofile-main">
       <div className="myprofile-about">
         <h1>MY PROFILE</h1>
-        <p>DONOR</p>
-        <MyInfo />
+        {/* <p>DONOR</p> */}
+        {user.isDonor ? (
+        <><p>DONOR</p></>
+        ) : (
+            <>
+            <p>VOLUNTEER</p></>
+        )}
+
+        <MyInfo name={ user.first_name + user.last_name} type= {user.isDonor ? "DONOR":"VOLUNTEER"} phone={user.contact} address={user.address} />
       </div>
       <Divider
         variant="middle"
@@ -85,11 +92,14 @@ const MyProfile = () => {
           }}
         >
           <h2 sx={requestHeading}>ALL REQUESTS</h2>
-          <Button variant="outlined" onClick={handleClickOpen}>
-            Create New
-          </Button>
+          {user.isDonor ? (
+          <> <Button variant="outlined" onClick={handleClickOpen}>
+          Create New
+        </Button></>
+          ): (<></>)}
+         
         </Box>
-        <Requests />
+        <Requests/>
       </div>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Food Donation Form</DialogTitle>

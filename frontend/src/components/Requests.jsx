@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
@@ -9,6 +9,7 @@ import Card from "@mui/material/Card";
 import toast from "react-hot-toast";
 import Button from "@mui/material/Button";
 import { Box } from "@mui/material";
+import useAxios from "../utils/useAxios";
 
 const request = [
   {
@@ -61,6 +62,7 @@ const Requests = () => {
           // bgcolor: "background.paper",
         }}
       >
+        
         {requests.map((request) => (
           <Card
             sx={{
@@ -96,8 +98,8 @@ const Requests = () => {
                 </Avatar>
               </ListItemAvatar>
               <ListItemText
-                primary={request.type}
-                secondary={request.address}
+                primary="name"
+                secondary={request.pickup_address}
               />
             </ListItem>
           </Card>
