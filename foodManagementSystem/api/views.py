@@ -58,17 +58,19 @@ class DonateFoodViewSet(APIView):
     def post(self, request, format=None):
         user = request.user
         donor = Donor.objects.get(user=user)
+        # print(request.data)
 
-        if request.data.food_name:
-            food_name = request.data.food_name
-        if request.data.food_description:
-            food_description = request.data.food_description
+        # if request.data.food_name:
+        food_name = request.data['name']
+        # if request.data.food_description:
+        food_description = request.data['description']
         
-        food = food.objects.create(donator=donor, food_name=food_name, food_description=food_description)
-        food.save()
-        pickup_request = pickup_request.objects.create(food_id=food)
+        food_item= food.objects.create(donator=donor, food_name=food_name, food_description=food_description)
+        food_item.save()
+        pickup_req = pickup_request.objects.create(food_id=food_item)
+        pickup_req.save()
 
-        return Response({"message": "Food Donated Successfully and Pickup-Request has been opened"}, status=status.HTTP_200_CREATED)
+        return Response({"message": "Food Donated Successfully and Pickup-Request has been opened"})
     
 class OpenPickupRequestViewSet(APIView):
     queryset = pickup_request.objects.all()

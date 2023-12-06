@@ -16,6 +16,7 @@ import { jwtDecode } from "jwt-decode";
 import useAxios from "../../utils/useAxios";
 import axios from "axios";
 import { API_BASE_URL } from "../../config";
+import toast from "react-hot-toast";
 
 const requestHeading = {
   marginTop: "0px",
@@ -26,6 +27,7 @@ const MyProfile = () => {
   const [open, setOpen] = React.useState(false);
   const [name, setName] = React.useState("");
   const [address, setAddress] = React.useState("");
+  const [description, setDescription] = React.useState("");
   const [phone, setPhone] = React.useState("");
   const [food, setFood] = React.useState("");
   const [user, setUser] = React.useState(() =>
@@ -40,7 +42,20 @@ const MyProfile = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose = async() => {
+
+    // const openRequest = async () => {
+      const response = await api.post("/donate/", {
+        name: name,
+        description: description,
+      });
+      if (response.status === 200) {
+        console.log(response.data);
+        toast.success ("Request Created Successfully")
+      }
+    // };
+    // openRequest();
+
     setOpen(false);
   };
 
@@ -145,7 +160,7 @@ const MyProfile = () => {
             type="text"
             fullWidth
             variant="standard"
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => setDescription(e.target.value)}
             required
           />
         </DialogContent>
