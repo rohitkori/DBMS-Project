@@ -93,7 +93,7 @@ const MyProfile = () => {
             <p>VOLUNTEER</p></>
         )}
 
-        <MyInfo name={ user.first_name + user.last_name} type= {user.isDonor ? "DONOR":"VOLUNTEER"} phone={user.contact} address={user.address} />
+        <MyInfo name={ userData.first_name + userData.last_name} type= {user.isDonor ? "DONOR":"VOLUNTEER"} phone="8787654567" address="Ratanada" />
       </div>
       <Divider
         variant="middle"

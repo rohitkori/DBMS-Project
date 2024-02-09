@@ -14,6 +14,14 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { API_BASE_URL } from "../config";
 import { jwtDecode } from "jwt-decode";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+const drawerWidth = 240;
+const light = {
+  palette: {
+    mode: "light",
+  },
+};
 
 
 export default function Login() {
@@ -70,6 +78,7 @@ export default function Login() {
   };
 
   return (
+    <ThemeProvider theme={createTheme(light)}>
     <Container component="main" maxWidth="sm">
       <Box
         sx={{
@@ -96,6 +105,7 @@ export default function Login() {
             name="email"
             autoComplete="email"
             autoFocus
+            
           />
           <TextField
             margin="normal"
@@ -133,6 +143,7 @@ export default function Login() {
           </Grid>
         </Box>
       </Box>
-    </Container>
+      </Container>
+      </ThemeProvider>
   );
 }
